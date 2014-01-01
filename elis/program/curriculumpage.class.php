@@ -160,7 +160,7 @@ class curriculumpage extends managementpage {
     }
 
     function can_do_add() {
-        $context = get_context_instance(CONTEXT_SYSTEM);
+        $context = context_system::instance();
         return has_capability('elis/program:program_create', $context);
     }
 
@@ -261,7 +261,7 @@ class curriculumforcoursepage extends curriculumpage {
     var $pagename = 'cfc';
 
     function can_do_default() {
-        $context = get_context_instance(CONTEXT_SYSTEM);
+        $context = context_system::instance();
         return has_capability('elis/program:program_create', $context);
         // FIXME: check permissions on the desired course too
     }

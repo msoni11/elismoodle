@@ -105,7 +105,7 @@ class dashboardpage extends pm_page {
     function display_default() {
         global $CFG, $USER, $OUTPUT;
 
-        $context = get_context_instance(CONTEXT_SYSTEM);
+        $context = context_system::instance();
         if (has_capability('elis/program:manage', $context) || has_capability('elis/program:config', $context)) {
             echo $OUTPUT->heading(get_string('admin_dashboard', 'elis_program'));
             echo $OUTPUT->box(html_writer::tag('p', get_string('elis_doc_class_link', 'elis_program')));

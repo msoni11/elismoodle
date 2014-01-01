@@ -58,7 +58,7 @@ class moodlecourseurl {
         $this->_templateTypeString = get_string('moodlecourseurl', 'elis_program');
         $this->_referenceTable =  'course';
 
-        $context = get_context_instance(CONTEXT_SYSTEM);
+        $context = context_system::instance();
     }
 
     /**
@@ -165,7 +165,7 @@ class moodlecourseurl {
 
         /* *** TBD *** */
         $PAGE->set_url($ME);
-        $PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
+        $PAGE->set_context(context_system::instance());
         //$PAGE->set_title($site->fullname);
         //$PAGE->set_heading($site->shortname);
         $PAGE->set_title(get_string('coursetemplate', 'elis_program'));

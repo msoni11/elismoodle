@@ -170,7 +170,7 @@ class coursepage extends managementpage {
     }
 
     function can_do_add() {
-        $context = get_context_instance(CONTEXT_SYSTEM);
+        $context = context_system::instance();
         return has_capability('elis/program:course_create', $context);
     }
 

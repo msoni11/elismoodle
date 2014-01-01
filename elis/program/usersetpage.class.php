@@ -358,7 +358,7 @@ class usersetpage extends managementpage {
         if ($parent) {
             $context = context_elis_userset::instance($parent);
         } else {
-            $context = get_context_instance(CONTEXT_SYSTEM);
+            $context = context_system::instance();
         }
 
         return has_capability('elis/program:userset_create', $context);

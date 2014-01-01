@@ -2298,7 +2298,7 @@ function pm_mymoodle_redirect($editing = false) {
         return false;
     }
 
-    if (has_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM))) {
+    if (has_capability('moodle/site:config', context_system::instance())) {
         //don't force admins to redirect
         return false;
     }

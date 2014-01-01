@@ -2091,7 +2091,7 @@ class ELIS_files {
                                          ($useurl === true ? 'true' : 'false') . ')');
 
         if ($repo === NULL) {
-            $repo = new repository_elis_files('elis_files', get_context_instance(CONTEXT_SYSTEM),
+            $repo = new repository_elis_files('elis_files', context_system::instance(),
                     array('ajax' => false, 'type' => 'elis_files'));
         }
 
@@ -2139,7 +2139,7 @@ class ELIS_files {
 
             // This is a server file.
             if ($cid == SITEID) {
-                $context = get_context_instance(CONTEXT_SYSTEM);
+                $context = context_system::instance();
             }
 
             // This is a course file.
@@ -2150,7 +2150,7 @@ class ELIS_files {
 
         // This is a shared file.
         if ($shared) {
-            $context = get_context_instance(CONTEXT_SYSTEM);
+            $context = context_system::instance();
         }
 
         // This is a user file.
@@ -2159,7 +2159,7 @@ class ELIS_files {
             if (isset($info->title)) {
                 $username  = str_replace('_AT_', '@', $info->title);
                 //error_log("preg_match('/\/User\sHomes\/([-_a-zA-Z0-9\s]+)\//', {$path}, = {$tmp}) => username = {$username}");
-                $context = get_context_instance(CONTEXT_SYSTEM);
+                $context = context_system::instance();
             }
         }
 
@@ -2528,7 +2528,7 @@ class ELIS_files {
         }
 
         if ($cid == SITEID) {
-            $context = get_context_instance(CONTEXT_SYSTEM);
+            $context = context_system::instance();
         } else {
             $context = get_context_instance(CONTEXT_COURSE, $cid);
         }
@@ -3367,7 +3367,7 @@ class ELIS_files {
             }
 
             if ($cid == SITEID) {
-                $context = get_context_instance(CONTEXT_SYSTEM);
+                $context = context_system::instance();
 
                 if (has_capability('repository/elis_files:viewsitecontent', $context)) {
                     $root = $this->get_root();
@@ -3464,7 +3464,7 @@ class ELIS_files {
             if (empty($cid)) {
                 $cid = $COURSE->id;
             }
-            $syscontext = get_context_instance(CONTEXT_SYSTEM);
+            $syscontext = context_system::instance();
             if ($cid == SITEID) {
                 $context = $syscontext;
             } else {

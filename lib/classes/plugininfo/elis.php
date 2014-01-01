@@ -51,7 +51,7 @@ class elis extends base {
      */
     public function __get($name) {
         if ($name === 'visible') {
-            debugging('This is now an instance of plugininfo_mod, please use $module->is_enabled() instead of $module->visible', DEBUG_DEVELOPER);
+            debugging('This is now an instance of plugininfo_elis, please use $elis->is_enabled() instead of $elis->visible', DEBUG_DEVELOPER);
             return ($this->is_enabled() !== false);
         }
         return parent::__get($name);
@@ -66,7 +66,7 @@ class elis extends base {
     }
 
     public function get_settings_section_name() {
-        return 'modsetting' . $this->name;
+        return 'elissetting' . $this->name;
     }
 
     public function load_settings(part_of_admin_tree $adminroot, $parentnodename, $hassiteconfig) {

@@ -94,7 +94,7 @@ class block_elis_reports extends block_list {
         $this->content = new stdClass;
         $this->content->footer = '';
 
-        $siteContext = get_context_instance(CONTEXT_SYSTEM);
+        $siteContext = context_system::instance();
         if($COURSE->id == SITEID) {
             $context = $siteContext ;
         } else {

@@ -1109,7 +1109,7 @@ class course_usage_summary_report extends icon_config_report {
         // Only generate if any/all were selected from the filter, in this case check for 0
         $search_string = get_string('curriculumidin','rlreport_course_usage_summary');
         if (!stristr($this->filter_statement, $search_string) &&
-            !has_capability($this->access_capability,get_context_instance(CONTEXT_SYSTEM), $this->userid)) {
+            !has_capability($this->access_capability,context_system::instance(), $this->userid)) {
             $this->needs_permission = true;
             return true;
         } else {

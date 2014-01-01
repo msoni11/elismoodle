@@ -1728,7 +1728,7 @@ class repository_elis_files extends repository {
             $userset_context = context_elis_userset::instance($oid);
         }
         if ($id == SITEID) {
-            $context = get_context_instance(CONTEXT_SYSTEM);
+            $context = context_system::instance();
         } else {
             $context = get_context_instance(CONTEXT_COURSE, $id);
         }
@@ -1785,7 +1785,7 @@ class repository_elis_files extends repository {
             $userset_context = context_elis_userset::instance($oid);
         }
         if ($id == SITEID) {
-            $context = get_context_instance(CONTEXT_SYSTEM);
+            $context = context_system::instance();
         } else {
             $context = get_context_instance(CONTEXT_COURSE, $id);
         }

@@ -108,7 +108,7 @@ class block_repository extends block_base {
 
         // If there is no content and the current user can actually modify the site settings, display some text
         // in the block explaining what is happening.
-        if (empty($content) && has_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM))) {
+        if (empty($content) && has_capability('moodle/site:config', context_system::instance())) {
             $url     = $CFG->wwwroot.'/admin/repository.php?action=edit&amp;repos=elis_files&amp;sesskey='. sesskey();
             $content = get_string('alfresconotconfigured', 'block_repository', $url);
         }

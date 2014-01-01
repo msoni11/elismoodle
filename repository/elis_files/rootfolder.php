@@ -33,12 +33,12 @@ require_once dirname(__FILE__) . '/lib/HTML_TreeMenu-1.2.0/TreeMenu.php';
 require_once dirname(__FILE__) . '/ELIS_files_factory.class.php';
 
 require_login(SITEID, false);
-$context = get_context_instance(CONTEXT_SYSTEM);
+$context = context_system::instance();
 $PAGE->set_context($context);
 require_capability('moodle/site:config', $context);
 
 //    if (!isadmin()) {
-if (!has_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM))) {
+if (!has_capability('moodle/site:config', context_system::instance())) {
     redirect($CFG->wwwroot);
 }
 

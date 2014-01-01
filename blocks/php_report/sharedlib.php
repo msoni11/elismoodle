@@ -118,7 +118,7 @@ function block_php_report_get_report_jobs_recordset($report_shortname, $fields =
               ON schedule.userid = user.id
             WHERE schedule.report = :shortname";
 
-    if (!has_capability('block/php_report:manageschedules', get_context_instance(CONTEXT_SYSTEM))) {
+    if (!has_capability('block/php_report:manageschedules', context_system::instance())) {
         //user does not have the necessary capability for viewing all scheduled instances,
         //so limit to their own
         $sql .= ' AND user.id = :userid';

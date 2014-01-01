@@ -28,7 +28,7 @@ require_once('../../../config.php');
 
 //prevent headers and footers from being displayed
 $PAGE->set_pagelayout('popup');
-$PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
+$PAGE->set_context(context_system::instance());
 
 //import necessary CSS
 $PAGE->requires->css('/blocks/php_report/styles.css');

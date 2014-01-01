@@ -347,7 +347,7 @@ class data_object_testcase extends elis_database_test {
         // Get some random role.
         $role = $DB->get_record('role', array(), '*', IGNORE_MULTIPLE);
         // Add a role assignment.
-        $syscontext = get_context_instance(CONTEXT_SYSTEM);
+        $syscontext = context_system::instance();
         // Create a new role assignment.
         $ra = new stdClass;
         $ra->userid = $user->id;

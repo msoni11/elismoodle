@@ -28,7 +28,10 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-
+/**
+ * Singleton class providing general plugins management functionality
+ */
+class plugin_manager {
 
     /** the plugin is shipped with standard Moodle distribution */
     const PLUGIN_SOURCE_STANDARD    = 'std';
@@ -965,22 +968,9 @@ defined('MOODLE_INTERNAL') || die();
 }
 
 
-/**
- * @deprecated since 2.6 - use core_plugin_manager instead.
- */
-class plugin_manager extends core_plugin_manager {
-    // BC only.
-    public static function instance() {
-        return core_plugin_manager::instance();
-    }
-}
 
-/**
- * @deprecated since 2.6 - use \core\plugininfo\base instead.
- */
-class plugininfo_base extends \core\plugininfo\base {
-    // BC only.
-}
+
+
 
 
 /**

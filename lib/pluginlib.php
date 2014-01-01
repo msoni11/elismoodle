@@ -138,7 +138,9 @@ defined('MOODLE_INTERNAL') || die();
             // Hack: include mod and editor subplugin management classes first,
             //       the adminlib.php is supposed to contain extra admin settings too.
             require_once($CFG->libdir.'/adminlib.php');
-            foreach(array('mod', 'editor') as $type) {
+            // RL EDIT: BJB130213 - added 'block' & 'elis' to array
+            foreach (array('mod', 'block', 'editor', 'elis') as $type) {
+            // End RL EDIT
                 foreach (get_plugin_list($type) as $dir) {
                     if (file_exists("$dir/adminlib.php")) {
                         include_once("$dir/adminlib.php");

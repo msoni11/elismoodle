@@ -45,7 +45,7 @@ class core_component {
     /** @var array list of ignored directories - watch out for auth/db exception */
     protected static $ignoreddirs = array('CVS'=>true, '_vti_cnf'=>true, 'simpletest'=>true, 'db'=>true, 'yui'=>true, 'tests'=>true, 'classes'=>true, 'fonts'=>true);
     /** @var array list plugin types that support subplugins, do not add more here unless absolutely necessary */
-    protected static $supportsubplugins = array('mod', 'editor', 'tool', 'local');
+    protected static $supportsubplugins = array('mod', 'block', 'elis', 'editor', 'tool', 'local');
 
     /** @var null cache of plugin types */
     protected static $plugintypes = null;
@@ -373,6 +373,9 @@ $cache = '.var_export($cache, true).';
             'user'        => $CFG->dirroot.'/user',
             'userkey'     => null,
             'webservice'  => $CFG->dirroot.'/webservice',
+            // RL EDIT: BJB130213
+            'elis'          => $CFG->dirroot.'/elis',  // ELIS-5770 -- include ELIS plugins
+            // End RL EDIT
         );
 
         return $info;
@@ -413,6 +416,9 @@ $cache = '.var_export($cache, true).';
             'tool'          => $CFG->dirroot.'/'.$CFG->admin.'/tool',
             'cachestore'    => $CFG->dirroot.'/cache/stores',
             'cachelock'     => $CFG->dirroot.'/cache/locks',
+            // RL EDIT: BJB130213
+            'elis'          => $CFG->dirroot.'/elis',  // ELIS-5770 -- include ELIS plugins
+            // End RL EDIT
         );
         $parents = array();
         $subplugins = array();

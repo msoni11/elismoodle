@@ -6358,6 +6358,7 @@ function admin_get_root($reload=false, $requirefulltree=true) {
             // plugins are loaded last - they may insert pages anywhere
                 continue;
             }
+die('ok');
             require($file);
         }
         require($CFG->dirroot.'/'.$CFG->admin.'/settings/plugins.php');

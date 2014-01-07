@@ -709,8 +709,7 @@ M.core_filepicker.init = function(Y, options) {
                         scope.options.formcallback.apply(formcallback_scope, [fileinfo]);
                     }
                         // End RL EDIT
-                    }
-                }, true);
+                    }, true);
             }
             var handleRename = function(e) {
                 // inserts file with the new name
@@ -1499,7 +1498,7 @@ M.core_filepicker.init = function(Y, options) {
                 // Find close buttons belonging to title bars
                 var title_bar = title_bars.item(i);
                 var close_button = title_bar.one('.yui3-button-close');
-                var display = close_button.getStyle('display');
+                var display = 'none';
                 if (display != 'none') {
                     // This is the main title bar, so add a handler to close the
                     // advanced search dialog when this is clicked

@@ -15,11 +15,7 @@
 .mdl-chat-my-entry {clear:both;}
 .dir-rtl .mdl-chat-entry,
 .dir-rtl .mdl-chat-my-entry {height: 90px;}
-<<<<<<< HEAD
-=======
-
 .mdl-chat-entry .chat-event {padding-bottom:15px;}
->>>>>>> MOODLE_26_STABLE
 
 .chat-message .chat-message-meta {padding-top:15px;padding-bottom:15px;}
 .chat-message .chat-message-meta .user {white-space:nowrap;}

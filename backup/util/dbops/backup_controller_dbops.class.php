@@ -164,8 +164,6 @@ abstract class backup_controller_dbops extends backup_dbops {
             $table = new xmldb_table($targettablename);
             $dbman->drop_table($table); // And drop it
         }
-<<<<<<< HEAD
-=======
     }
 
     /**
@@ -204,7 +202,6 @@ abstract class backup_controller_dbops extends backup_dbops {
             }
         }
         return $info;
->>>>>>> MOODLE_26_STABLE
     }
 
     /**

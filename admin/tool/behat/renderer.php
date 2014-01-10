@@ -101,8 +101,6 @@ class tool_behat_renderer extends plugin_renderer_base {
             $stepsdefinitions = preg_replace_callback('/(SELECTOR\d?_STRING)/',
                 function ($matches) {
                     return html_writer::select(behat_selectors::get_allowed_selectors(), uniqid());
-<<<<<<< HEAD
-=======
                 },
                 $stepsdefinitions
             );
@@ -112,7 +110,6 @@ class tool_behat_renderer extends plugin_renderer_base {
             $stepsdefinitions = preg_replace_callback($regex,
                 function($matches){
                     return html_writer::select(explode('|', $matches[1]), uniqid());
->>>>>>> MOODLE_26_STABLE
                 },
                 $stepsdefinitions
             );

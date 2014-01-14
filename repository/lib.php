@@ -2906,13 +2906,13 @@ abstract class repository implements cacheable_object {
         }
         $init = true;
         $req_css = array(
-                '/lib/yuilib/3.9.1/build/panel/assets/panel-core.css',
-                '/lib/yuilib/3.9.1/build/panel/assets/skins/night/panel-skin.css',
-                '/lib/yuilib/3.9.1/build/panel/assets/skins/night/panel.css',
-                '/lib/yuilib/3.9.1/build/panel/assets/skins/sam/panel.css',
-                '/lib/yuilib/3.9.1/build/panel/assets/skins/sam/panel-skin.css',
-                '/lib/yuilib/3.9.1/build/panel/assets/skins/sam/panel.css',
-                '/lib/yuilib/3.9.1/build/assets/skins/sam/skin.css'
+                '/lib/yuilib/3.13.0/panel/assets/panel-core.css',
+                '/lib/yuilib/3.13.0/panel/assets/skins/night/panel-skin.css',
+                '/lib/yuilib/3.13.0/panel/assets/skins/night/panel.css',
+                '/lib/yuilib/3.13.0/panel/assets/skins/sam/panel.css',
+                '/lib/yuilib/3.13.0/panel/assets/skins/sam/panel-skin.css',
+                '/lib/yuilib/3.13.0/panel/assets/skins/sam/panel.css',
+                '/lib/yuilib/3.13.0/assets/skin/sam/skin.css'
         );
 
         if (empty($page)) {

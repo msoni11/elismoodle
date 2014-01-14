@@ -31,7 +31,48 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Hack to find out the GD version by parsing phpinfo output
+/**
+ * Use when listing real plugins of one type.
+ *
+ * @deprecated since 2.6, use core_component::get_plugin_list()
+ *
+ * @param string $plugintype type of plugin
+ * @return array name=>fulllocation pairs of plugins of given type
+ */
+function get_plugin_list($plugintype) {
+
+    // NOTE: do not add any other debugging here, keep forever.
+
+    if ($plugintype === '') {
+        $plugintype = 'mod';
+    }
+
+    return core_component::get_plugin_list($plugintype);
+}
+
+/**
+ * Get a list of all the plugins of a given type that define a certain class
+ * in a certain file. The plugin component names and class names are returned.
+ *
+ * @deprecated since 2.6, use core_component::get_plugin_list_with_class()
+ *
+ * @param string $plugintype the type of plugin, e.g. 'mod' or 'report'.
+ * @param string $class the part of the name of the class after the
+ *      frankenstyle prefix. e.g 'thing' if you are looking for classes with
+ *      names like report_courselist_thing. If you are looking for classes with
+ *      the same name as the plugin name (e.g. qtype_multichoice) then pass ''.
+ * @param string $file the name of file within the plugin that defines the class.
+ * @return array with frankenstyle plugin names as keys (e.g. 'report_courselist', 'mod_forum')
+ *      and the class names as values (e.g. 'report_courselist_thing', 'qtype_multichoice').
+ */
+function get_plugin_list_with_class($plugintype, $class, $file) {
+
+    // NOTE: do not add any other debugging here, keep forever.
+
+    return core_component::get_plugin_list_with_class($plugintype, $class, $file);
+}
+
+/** Hack to find out the GD version by parsing phpinfo output
  *
  * @return int GD version (1, 2, or 0)
  */

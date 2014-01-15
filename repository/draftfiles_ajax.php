@@ -55,7 +55,7 @@ function debug_errorlog_obj($msg, $obj = null) {
 }
 // End RL EDIT
 
-$PAGE->set_context(get_system_context());
+$PAGE->set_context(context_system::instance());
 require_login();
 if (isguestuser()) {
     print_error('noguest');
@@ -82,7 +82,7 @@ switch ($action) {
         die;
 
     case 'list':
-        $filepath = optional_param('filepath', '/', PARAM_PATH);
+    	$filepath = optional_param('filepath', '/', PARAM_PATH);
         // RL EDIT
         debug_errorlog_obj("draftfiles_ajax.php::list: filepath = {$filepath}");
         if ($has_elisfiles && substr($filepath, 0, 1) != '/') {

@@ -1,5 +1,6 @@
 <?php
 
+$string['pluginname'] = 'Alfresco Repository';
 $string['alfresconotconfigured'] = 'Alfresco is not configured. You can enable and configure the plug-in here:<br />' .
                                    '<p align="center"><a href="{$a}">Manage repositories</a></p>';
 $string['badqueryresponse'] = 'Bad query response!<br/>Your query has returned bad XML due to a Repository Server Error.';

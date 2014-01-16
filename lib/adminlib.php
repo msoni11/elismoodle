@@ -6741,8 +6741,11 @@ function db_replace($search, $replace) {
 
         if ($columns = $DB->get_columns($table)) {
             $DB->set_debug(true);
-            foreach ($columns as $column) {
-                $DB->replace_all_text($table, $column, $search, $replace);
+            foreach ($columns as $column => $data) {
+                if (in_array($data->meta_type, array('C', 'X'))) {  // Text stuff only
+                    //TODO: this should be definitively moved to DML driver to do the actual replace, this is not going to work for MSSQL and Oracle...
+                    $DB->execute("UPDATE {".$table."} SET $column = REPLACE($column, ?, ?)", array($search, $replace));
+                }
             }
             $DB->set_debug(false);
         }
@@ -8616,109 +8619,4 @@ class admin_setting_php_extension_enabled extends admin_setting {
         }
         return $o;
     }
-}
-
-/**
- * Given a list of categories, this function searches for ones
- * that have a missing parent category.
- *
- * TODO: Replace HOSSUP-1438 changes with MDL-34684 changes when integrated into upstream.
- *
- * @param array $categories List of categories.
- * @return array List of categories with missing parents.
- */
-function health_category_find_missing_parents($categories) {
-    $missingparent = array();
-
-    foreach ($categories as $category) {
-        if ($category->parent != 0 && !array_key_exists($category->parent, $categories)) {
-            $missingparent[$category->id] = $category;
-        }
-    }
-
-    return $missingparent;
-}
-
-/**
- * Generates a list of categories with missing parents.
- *
- * TODO: Replace HOSSUP-1438 changes with MDL-34684 changes when integrated into upstream.
- *
- * @param array $missingparent List of categories with missing parents.
- * @return string Bullet point list of categories with missing parents.
- */
-function health_category_list_missing_parents($missingparent) {
-    $description = '';
-
-    if (!empty($missingparent)) {
-        $description .= '<p>The following categories are missing their parents:</p><ul>';
-        foreach ($missingparent as $cat) {
-            $description .= "<li>Category $cat->id: " . s($cat->name) . "</li>\n";
-        }
-        $description .= "</ul>\n";
-    }
-
-    return $description;
-}
-
-/**
- * Given a list of categories, this function searches for ones
- * that have loops to previous parent categories.
- *
- * TODO: Replace HOSSUP-1438 changes with MDL-34684 changes when integrated into upstream.
- *
- * @param array $categories List of categories.
- * @return array List of categories with loops.
- */
-function health_category_find_loops($categories) {
-    $loops = array();
-
-    // TODO: Improve this code so that if the root node is included in a loop, only children in the actual loop are reported
-    while (!empty($categories)) {
-        $current = array_pop($categories);
-        $thisloop = array($current->id => $current);
-        while (true) {
-            if (isset($thisloop[$current->parent])) {
-                // Loop detected
-                $loops[$current->id] = $thisloop;
-                break;
-            } else if (!isset($categories[$current->parent])) {
-                // Got to the top level, or a category we already know is OK.
-                break;
-            } else {
-                // Continue following the path.
-                $current = $categories[$current->parent];
-                $thisloop[$current->id] = $current;
-                unset($categories[$current->id]);
-            }
-        }
-    }
-
-    return $loops;
-}
-
-/**
- * Generates a list of categories with loops.
- *
- * TODO: Replace HOSSUP-1438 changes with MDL-34684 changes when integrated into upstream.
- *
- * @param array $loops List of categories with loops.
- * @return string Bullet point list of categories with loops.
- */
-function health_category_list_loops($loops) {
-    $description = '';
-
-    if (!empty($loops)) {
-        $description .= '<p>The following categories form a loop of parents:</p><ul>';
-        foreach ($loops as $loop) {
-            $description .= "<li><ul>\n";
-            foreach ($loop as $cat) {
-                $description .= "<li>Category $cat->id: " . s($cat->name) . " has parent $cat->parent</li>\n";
-            }
-            $description .= "</ul></li>\n";
-        }
-        $description .= "</ul>\n";
-    }
-
-    return $description;
 }

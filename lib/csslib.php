@@ -212,51 +212,6 @@ function css_chunk_by_selector_count($css, $importurl, $maxselectors = 4095, $bu
 }
 
 /**
- * Sends IE specific CSS
- *
- * In writing the CSS parser I have a theory that we could optimise the CSS
- * then split it based upon the number of selectors to ensure we dont' break IE
- * and that we include only as many sub-stylesheets as we require.
- * Of course just a theory but may be fun to code.
- *
- * @param string $themename The name of the theme we are sending CSS for.
- * @param string $rev The revision to ensure we utilise the cache.
- * @param string $etag The revision to ensure we utilise the cache.
- * @param bool $slasharguments
- */
-function css_send_ie_css($themename, $rev, $etag, $slasharguments) {
-    global $CFG;
-
-    $lifetime = 60*60*24*60; // 60 days only - the revision may get incremented quite often
-
-    $relroot = preg_replace('|^http.?://[^/]+|', '', $CFG->wwwroot);
-
-    $css  = "/** Unfortunately IE6-9 does not support more than 4096 selectors in one CSS file, which means we have to use some ugly hacks :-( **/";
-    if ($slasharguments) {
-        $css .= "\n@import url($relroot/styles.php/$themename/$rev/plugins);";
-        $css .= "\n@import url($relroot/styles.php/$themename/$rev/parents);";
-        $css .= "\n@import url($relroot/styles.php/$themename/$rev/theme);";
-    } else {
-        $css .= "\n@import url($relroot/styles.php?theme=$themename&rev=$rev&type=plugins);";
-        $css .= "\n@import url($relroot/styles.php?theme=$themename&rev=$rev&type=parents);";
-        $css .= "\n@import url($relroot/styles.php?theme=$themename&rev=$rev&type=theme);";
-    }
-
-    header('Etag: "'.$etag.'"');
-    header('Content-Disposition: inline; filename="styles.php"');
-    header('Last-Modified: '. gmdate('D, d M Y H:i:s', time()) .' GMT');
-    header('Expires: '. gmdate('D, d M Y H:i:s', time() + $lifetime) .' GMT');
-    header('Pragma: ');
-    header('Cache-Control: public, max-age='.$lifetime);
-    header('Accept-Ranges: none');
-    header('Content-Type: text/css; charset=utf-8');
-    header('Content-Length: '.strlen($css));
-
-    echo $css;
-    die;
-}
-
-/**
  * Sends a cached CSS file
  *
  * This function sends the cached CSS file. Remember it is generated on the first
@@ -338,80 +293,6 @@ function css_send_unmodified($lastmodified, $etag) {
 function css_send_css_not_found() {
     header('HTTP/1.0 404 not found');
     die('CSS was not found, sorry.');
-}
-
-/**
- * Uses the minify library to compress CSS.
- *
- * This is used if $CFG->enablecssoptimiser has been turned off. This was
- * the original CSS optimisation library.
- * It removes whitespace and shrinks things but does no apparent optimisation.
- * Note the minify library is still being used for JavaScript.
- *
- * @param array $files An array of files to minify
- * @return string The minified CSS
- */
-function css_minify_css($files) {
-    global $CFG;
-
-    if (empty($files)) {
-        return '';
-    }
-
-    // We do not really want any 304 here!
-    // There does not seem to be any better way to prevent them here.
-    unset($_SERVER['HTTP_IF_NONE_MATCH']);
-    unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
-
-    set_include_path($CFG->libdir . '/minify/lib' . PATH_SEPARATOR . get_include_path());
-    require_once('Minify.php');
-
-    if (0 === stripos(PHP_OS, 'win')) {
-        Minify::setDocRoot(); // IIS may need help
-    }
-    // disable all caching, we do it in moodle
-    Minify::setCache(null, false);
-
-    $options = array(
-        // JSMin is not GNU GPL compatible, use the plus version instead.
-        'minifiers' => array(Minify::TYPE_JS => array('JSMinPlus', 'minify')),
-        'bubbleCssImports' => false,
-        // Don't gzip content we just want text for storage
-        'encodeOutput' => false,
-        // Maximum age to cache, not used but required
-        'maxAge' => (60*60*24*20),
-        // The files to minify
-        'files' => $files,
-        // Turn orr URI rewriting
-        'rewriteCssUris' => false,
-        // This returns the CSS rather than echoing it for display
-        'quiet' => true
-    );
-
-    $error = 'unknown';
-    try {
-        $result = Minify::serve('Files', $options);
-        if ($result['success'] and $result['statusCode'] == 200) {
-            return $result['content'];
-        }
-    } catch (Exception $e) {
-        $error = $e->getMessage();
-        $error = str_replace("\r", ' ', $error);
-        $error = str_replace("\n", ' ', $error);
-    }
-
-    // minification failed - try to inform the theme developer and include the non-minified version
-    $css = <<<EOD
-/* Error: $error */
-/* Problem detected during theme CSS minimisation, please review the following code */
-/* ================================================================================ */
-
-
-EOD;
-    foreach ($files as $cssfile) {
-        $css .= file_get_contents($cssfile)."\n";
-    }
-    return $css;
 }
 
 /**

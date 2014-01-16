@@ -993,13 +993,7 @@ function groups_cache_groupdata($courseid, cache $cache = null) {
 
     if (!empty($groupings)) {
         // Finally get the mappings between the two.
-        list($insql, $params) = $DB->get_in_or_equal(array_keys($groupings));
-        $mappings = $DB->get_records_sql("
-                SELECT gg.id, gg.groupingid, gg.groupid
-                  FROM {groupings_groups} gg
-                  JOIN {groups} g ON g.id = gg.groupid
-                 WHERE gg.groupingid $insql
-              ORDER BY g.name ASC", $params);
+        $mappings = $DB->get_records_list('groupings_groups', 'groupingid', array_keys($groupings), '', 'id,groupingid,groupid');
     } else {
         $mappings = array();
     }

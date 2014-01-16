@@ -1109,8 +1109,6 @@ function filter_get_global_states() {
 function filter_delete_all_for_filter($filter) {
     global $DB;
 
-    filter_set_applies_to_strings($filter, false);
-
     unset_all_config_for_plugin('filter_' . $filter);
     $DB->delete_records('filter_active', array('filter' => $filter));
     $DB->delete_records('filter_config', array('filter' => $filter));

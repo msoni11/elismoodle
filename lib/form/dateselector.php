@@ -241,8 +241,9 @@ class MoodleQuickForm_date_selector extends MoodleQuickForm_group {
      */
     function accept(&$renderer, $required = false, $error = null) {
         // RL Edit - only display a disable static element or don't display the optional check box if this element is frozen
-        // 4 is the index where the checkbox is located
-        if ($this->isFrozen() && $this->_options['optional'] && !$this->_elements[4]->getChecked()){
+        // 4 is the index where the checkbox is located.
+        // In moodle 26 checkbox index is changed to 5
+        if ($this->isFrozen() && $this->_options['optional'] && !$this->_elements[5]->getChecked()){
             $this->_elements = array();
             $this->_elements[] =& MoodleQuickForm::createElement('static', 'disabled', '', get_string('disabled', 'filters'));
         } else if ($this->isFrozen() && isset($this->_elements[3])) {

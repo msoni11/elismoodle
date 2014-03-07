@@ -166,7 +166,7 @@ $THEME->javascripts = array(
 );
 
 $THEME->javascripts_footer = array(
-    'dockmod'
+    'dockmod', 'maharalogout'
 );
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';

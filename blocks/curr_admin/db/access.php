@@ -34,5 +34,13 @@ $capabilities = array(
             'manager' => CAP_ALLOW
         ),
     ),
+    'block/curr_admin:myaddinstance' => array(
+        'riskbitmask' => RISK_CONFIG | RISK_PERSONAL,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW
+        ),
+    ),
 );
 
